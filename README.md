@@ -1,39 +1,18 @@
 README
 ======
 
-TEMPLATE README
-THP Marseille - Fichier de rendu pour le 2019/01/17
+Site web de potins
+THP Marseille - Fichier de rendu pour le 2019/01/28
 
 Comment exécuter le programme
 =============
 
-1. Créer un dossier
-2. git clone https://github.com/tmiquel/THP-2019-01-10-RubyBasics
-3. Se mettre à la racine du dossier
-4. Jouer les tests suivants :
+1. Créer un dossier & télécharge ce contenu
+2. Se mettre à la racine du dossier
+3. Executer dans un terminal de type UNIX les commandes suivantes 
+		bundle install
+		shotgun -p 4567 
 
-	rspec spec/crypto_currencies_spec.rb 
-
-	rspec spec/townhall_spec.rb 
-
-	rspec spec/members_FR_parliament_spec.rb
-
-
-Contenu
-======
-
-1. Un scrapping de crypto_currencies
-
-	ruby lib/crypto_currencies_scrapper.rb 
-
-2. Un scrapping des emails des mairies du Val d'Oise
-
-	ruby lib/oise_townhall_scrapper.rb
-
-3. Un scrapping des emails des députés français
-
-	ruby lib/members_FR_parliament_scrapper.rb
-	
 
 Participants 
 ==========
