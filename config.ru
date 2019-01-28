@@ -8,6 +8,7 @@ system('bundle install') unless system('bundle check')
 require 'bundler'
 Bundler.require
 
-require './controller'
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
+require 'controller'
 
 run ApplicationController
