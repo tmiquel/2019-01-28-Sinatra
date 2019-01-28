@@ -10,60 +10,16 @@ class Comment
     @author = author
     @gossip_id = gossip_id
     save
-    @id = all.length
+    @id = Comment.count(gossip_id)
   end
 
-  def get_per_id(id)
-    all[id.to_i - 1]
-    end
-
-  def self.update_per_id(id, new_author, new_content)
-    array_of_comments_arrays =
-      CSV.read(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv")
-
-    array_of_comments_arrays[id.to_i - 1] = [new_author, new_content]
-
-    f = File.open(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv", 'w+')
-    f.write(array_of_comments_arrays
-      .map { |comment_array| comment_array.join(',') }
-       .join("\n"))
-    f.close
-    end
-
-  def count
-    all.length
-    end
-
-  def all
-    all_comments_array = []
-    CSV.foreach(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv") do |comment_array|
-      all_comments_array << comment_array
-    end
-    all_comments_array
-    end
-
-  def self.destroy_comment(index_integer)
-    array_of_comments_arrays =
-      CSV.read(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv")
-
-    array_of_comments_arrays.delete_at(index_integer)
-
-    f = File.open(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv", 'w+')
-    f.write(array_of_comments_arrays
-      .map { |comment_array| comment_array.join(',') }
-       .join("\n"))
-    f.close
-    end
+  def get_comment_per_id(id)
+    Comment.all_for_id(gossip_id)[id.to_i - 1]
+  end
 
   def save
-    # CSV.open('./db/gossip.csv', 'ab') do |csv|
-    #   csv << [@author, @content]
-    # end
-    # end
+    csv_file = Comment.create_CSV(@gossip_id)
 
-    CSV.open(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv")
-  rescue StandardError
-    system('touch ' + Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv")
     array_of_comments_arrays =
       CSV.read(Dir.getwd + "/db/comments-for-gossip-#{@gossip_id}.csv")
 
@@ -74,5 +30,37 @@ class Comment
        .map { |comment_array| comment_array.join(',') }
         .join("\n"))
     f.close
+  end
+
+  def self.create_CSV(id)
+    c = CSV.open(Dir.getwd + "/db/comments-for-gossip-#{id}.csv", 'a')
+    c.close
+    c
+  end
+
+  def self.update_per_id(id, new_author, new_content)
+    array_of_comments_arrays =
+      CSV.read(Dir.getwd + "/db/comments-for-gossip-#{id}.csv")
+
+    array_of_comments_arrays[id.to_i - 1] = [new_author, new_content]
+
+    f = File.open(Dir.getwd + "/db/comments-for-gossip-#{id}.csv", 'w+')
+    f.write(array_of_comments_arrays
+      .map { |comment_array| comment_array.join(',') }
+       .join("\n"))
+    f.close
+  end
+
+  def self.count(gossip_id)
+    Comment.all_for_id(gossip_id).length
+  end
+
+  def self.all_for_id(gossip_id)
+    Comment.create_CSV(gossip_id)
+    all_comments_array = []
+    CSV.foreach(Dir.getwd + "/db/comments-for-gossip-#{gossip_id}.csv") do |comment_array|
+      all_comments_array << comment_array
+    end
+    all_comments_array
   end
 end

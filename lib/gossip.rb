@@ -4,20 +4,36 @@ require_relative 'comment'
 
 class Gossip
   attr_reader :author, :content, :id, :comments
-  @@gossips_hash = {}
+  @@count = 0
 
   def initialize(author, content)
     @content = content
     @author = author
-    save
+    Gossip.create_CSV
+    save unless Gossip.all.include?([@author.to_s, @content.to_s])
     @id = Gossip.all.length
     @comments = []
-    @comments << Comment.new(@id, 'Pas de commentaire encore', '')
-    @@gossips_hash[@id] = self
+    @@count += 1
+  end
+
+  def self.get_gossips_hash
+    all_gossips_hash = {}
+    count = 0
+    CSV.foreach(Dir.getwd + '/db/gossip.csv') do |gossip_array|
+      count += 1
+      all_gossips_hash[count] = Gossip.new(gossip_array[0], gossip_array[1])
+    end
+    all_gossips_hash
   end
 
   def add_comment(author, content)
     @comments << Comment.new(@id, author, content)
+  end
+
+  def self.create_CSV
+    c = CSV.open(Dir.getwd + '/db/gossip.csv', 'a')
+    c.close
+    c
   end
 
   def self.get_gossip(id)
@@ -71,6 +87,7 @@ class Gossip
     #   csv << [@author, @content]
     # end
     # end
+
     array_of_gossips_arrays =
       CSV.read(Dir.getwd + '/db/gossip.csv')
 

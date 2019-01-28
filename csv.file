@@ -1,0 +1,21 @@
+
+[1mFrom:[0m /home/thibaut/Dropbox (Thibaut)/team/3-Job/Formations/5-THP-2019-01/2019-01-28-Sinatra/lib/comment.rb @ line 81 Comment#save:
+
+    [1;34m67[0m: [32mdef[0m [1;34msave[0m
+    [1;34m68[0m:   csv_file = [1;36mself[0m.create_CSV(@gossip_id)
+    [1;34m69[0m: 
+    [1;34m70[0m:   [1;34;4mCSV[0m.open([1;34;4mDir[0m.getwd + [31m[1;31m"[0m[31m/db/comments-for-gossip-#{@gossip_id}[0m[31m.csv[1;31m"[0m[31m[0m)
+    [1;34m71[0m:       array_of_comments_arrays =
+    [1;34m72[0m:     [1;34;4mCSV[0m.read([1;34;4mDir[0m.getwd + [31m[1;31m"[0m[31m/db/comments-for-gossip-#{@gossip_id}[0m[31m.csv[1;31m"[0m[31m[0m)
+    [1;34m73[0m: 
+    [1;34m74[0m:   array_of_comments_arrays.push([@author.to_s, @content.to_s])
+    [1;34m75[0m: 
+    [1;34m76[0m:   f = [1;34;4mFile[0m.open([1;34;4mDir[0m.getwd + [31m[1;31m"[0m[31m/db/comments-for-gossip-#{@gossip_id}[0m[31m.csv[1;31m"[0m[31m[0m, [31m[1;31m'[0m[31mw+[1;31m'[0m[31m[0m)
+    [1;34m77[0m:   f.write(array_of_comments_arrays
+    [1;34m78[0m:      .map { |comment_array| comment_array.join([31m[1;31m'[0m[31m,[1;31m'[0m[31m[0m) }
+    [1;34m79[0m:       .join([31m[1;31m"[0m[31m[1;35m\n[0m[31m[1;31m"[0m[31m[0m))
+    [1;34m80[0m:   f.close
+ => [1;34m81[0m:   binding.pry
+    [1;34m82[0m: 
+    [1;34m83[0m: [32mend[0m
+

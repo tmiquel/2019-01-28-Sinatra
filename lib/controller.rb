@@ -5,6 +5,7 @@ require_relative 'gossip'
 
 class ApplicationController < Sinatra::Base
   get '/' do
+    Gossip.create_CSV
     erb :index, locals: { gossips: Gossip.all }
   end
 
@@ -27,19 +28,21 @@ class ApplicationController < Sinatra::Base
   end
 
   get %r{/gossips/([\d]+)/} do |id|
-    erb :show_gossip, locals: { gossip: Gossip.get_per_id(id), id: id, gossips: Gossip.all, comments: Gossip.get_gossip(id).comments }
+    erb :show_gossip, locals: { gossip: Gossip.get_per_id(id), id: id, gossips: Gossip.all, comments: Comment.all_for_id(id) }
   end
 
   # Nouveau commentaire
   get %r{/comments-of-gossip-([\d]+)/new/} do |id|
-    erb :new_comment, locals: { gossip: Gossip.get_per_id(id), id: id, comments: Comment.get_per_id }
+    erb :new_comment, locals: { gossip: Gossip.get_per_id(id),
+                                id: id, comments: Comment.all_for_id(id) }
   end
 
   post %r{/comments-of-gossip-([\d]+)/new/} do |id|
-    Gossip.get_per_id(id).add_comment(id, params['comment_author'], params['comment_content'])
-    redirect '/'
+    Comment.new(id, params['new_author'], params['new_content'])
+    redirect to('gossips/' + id.to_s + '/')
   end
 
+  # Gossip
   get %r{/gossips/([\d]+)/edit/} do |id|
     erb :edit_gossip, locals: { gossip: Gossip.get_per_id(id), id: id }
   end
