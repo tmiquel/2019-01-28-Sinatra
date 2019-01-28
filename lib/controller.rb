@@ -27,7 +27,17 @@ class ApplicationController < Sinatra::Base
   end
 
   get %r{/gossips/([\d]+)/} do |id|
-    erb :show_gossip, locals: { gossip: Gossip.get_per_id(id), id: id }
+    erb :show_gossip, locals: { gossip: Gossip.get_per_id(id), id: id, gossips: Gossip.all, comments: Gossip.get_gossip(id).comments }
+  end
+
+  # Nouveau commentaire
+  get %r{/comments-of-gossip-([\d]+)/new/} do |id|
+    erb :new_comment, locals: { gossip: Gossip.get_per_id(id), id: id, comments: Comment.get_per_id }
+  end
+
+  post %r{/comments-of-gossip-([\d]+)/new/} do |id|
+    Gossip.get_per_id(id).add_comment(id, params['comment_author'], params['comment_content'])
+    redirect '/'
   end
 
   get %r{/gossips/([\d]+)/edit/} do |id|
