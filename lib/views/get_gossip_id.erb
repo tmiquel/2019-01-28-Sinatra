@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Voir un potin</title>
+  </head>
+  <body>
+    <h1>Quel est l'ID du potin?</h1>
+    <p>L'ID est un nombre entier entre 1 et <%= gossips_count %></p>
+    <form action='/gossips/get_gossip_id/' method='POST'>
+      Balance l'ID du potin : <input type='text' name='gossip_id'/><br/>
+      <input type='submit'/>
+    </form>
+  </body>
+</html>
+
+

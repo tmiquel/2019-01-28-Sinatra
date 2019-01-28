@@ -1,0 +1,75 @@
+<html lang="fr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+    <!-- QUICKSAND FONT FROM GOOGLE FONT -->
+
+     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
+
+
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Modification du potin d'ID <%= id %></title>
+  </head>
+
+    <body>
+
+        <!--  -->
+    <style>
+     body {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    height: 100vh;
+      }
+   </style>
+
+   <div class="container my-5">
+      <div class="row">
+        <div class="col-1">
+        </div>
+
+        <div class="col-10">
+
+          <h1>Potin d'ID <%= id %></h1>
+          <p> Son auteur pour le moment : <%= gossip[0] %> </p>
+          <p> Son contenu pour le moment : <%= gossip[1] %> </p>
+          <br>
+
+    <form action="/gossips/<%= id %>/edit/" method='POST'>
+    <div class="input-group flex-nowrap my-5">
+
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="addon-wrapping">Nouvel Auteur</span>
+      </div>
+      <input type="text" class="form-control" placeholder="<%= gossip[0] %>"" aria-label="<%= gossip[0] %>" aria-describedby="addon-wrapping" name="new_author">
+    </div>
+
+    <div class="input-group flex-nowrap my-5">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="addon-wrapping">Nouveau Potin</span>
+      </div>
+      <input type="text" class="form-control" placeholder="<%= gossip[1] %>"" aria-label="<%= gossip[1] %>" aria-describedby="addon-wrapping" name="new_content">
+    </div>
+
+    <input type="submit" class="btn"></input>
+    <p><a href="/"> Annuler et revenir à la page d'accueil</a></p>
+  </form>
+
+
+    
+
+        </div>
+      </div>
+    </div>
+  </body>
+
+
+
+
+
+</html>
