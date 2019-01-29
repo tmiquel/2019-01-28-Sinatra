@@ -1,0 +1,10 @@
+These methods MIGHT not be called:
+
+Comment
+  author                              lib/comment.rb:6
+  content                             lib/comment.rb:6
+  gossip_id                           lib/comment.rb:6
+
+Gossip
+  author                              lib/gossip.rb:6
+  content                             lib/gossip.rb:6

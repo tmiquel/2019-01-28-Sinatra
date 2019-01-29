@@ -3,6 +3,8 @@
 source 'https://rubygems.org'
 ruby '2.5.1'
 gem 'csv'
+gem 'debride'
+gem 'debride-erb'
 gem 'pry'
 gem 'shotgun'
 gem 'sinatra'
